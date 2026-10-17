@@ -9,6 +9,5 @@ public class Book
     public int NumPages { get; set; } // gravity.db: num_pages
     public decimal Price { get; set; }
 
-    public string Author { get; set; } =
-        ""; // tymczasowo tekst; w Lab 5 zamienimy na relację N:M (model wzorowany na bazie gravity.db)
+    public string Author { get; set; } = "";
 }
