@@ -20,11 +20,9 @@
     <tbody>
     @{
         foreach (var book in @Model)
-        {
-            <tr>
-                <td>@book.Title</td><td>@book.Price</td>
-                
-            </tr>
+        { 
+         
+        <partial model="@book name="_BookRow"/>
             
         }
     }
