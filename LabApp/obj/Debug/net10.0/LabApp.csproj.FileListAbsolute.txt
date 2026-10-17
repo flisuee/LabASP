@@ -95,3 +95,4 @@ C:\Users\Student\RiderProjects\LabASP\LabApp\obj\Debug\net10.0\refint\LabApp.dll
 C:\Users\Student\RiderProjects\LabASP\LabApp\obj\Debug\net10.0\LabApp.pdb
 C:\Users\Student\RiderProjects\LabASP\LabApp\obj\Debug\net10.0\LabApp.genruntimeconfig.cache
 C:\Users\Student\RiderProjects\LabASP\LabApp\obj\Debug\net10.0\ref\LabApp.dll
+C:\Users\Student\RiderProjects\LabASP\LabApp\obj\Debug\net10.0\LabApp.sourcelink.json
