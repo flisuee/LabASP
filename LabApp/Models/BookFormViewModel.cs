@@ -29,4 +29,10 @@ public class BookFormViewModel
     [Required]
     [Display(Name = "Autor")]
     public string Author { get; set; } = "";
+    
+    [Required(ErrorMessage = "Kod wydawcy jest wymagany.")]
+    [RegularExpression(@"^[A-Z]{3}-\d{4}$",
+        ErrorMessage = "Kod wydawcy musi mieć format ABC-1234.")]
+    [Display(Name = "Kod wydawcy")]
+    public string PublisherCode { get; set; } = "";
 }
