@@ -2,8 +2,21 @@
 
 namespace LabApp.Models;
 
-public class BookFormViewModel
+public class BookFormViewModel : IValidatableObject
 {
+    public IEnumerable<ValidationResult> Validate(
+        ValidationContext validationContext)
+    {
+        if (PublicationDate.HasValue &&
+            PublicationDate.Value.Year < 1900 &&
+            Price > 100)
+        {
+            yield return new ValidationResult(
+                "Książka sprzed 1900 r. nie może kosztować więcej niż 100 zł."
+            );
+        }
+    }
+    
     [Required(ErrorMessage = "Tytuł jest wymagany")]
     [StringLength(200, MinimumLength = 2,
         ErrorMessage = "Tytuł: 2–200 znaków")]
@@ -11,11 +24,11 @@ public class BookFormViewModel
     public string Title { get; set; } = "";
 
     [Required]
-    [Isbn] // Własny atrybut walidacji
+    [Isbn] 
     public string Isbn { get; set; } = "";
 
     [DataType(DataType.Date)]
-    [NotInFuture] // Własny atrybut walidacji
+    [NotInFuture]
     [Display(Name = "Data wydania")]
     public DateTime? PublicationDate { get; set; }
 
