@@ -45,4 +45,7 @@ public class BookController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+    
+    public async Task ByYear(int year) { /* filtruj listę po roku, zwróć widok Index */ }
+    public async Task ByIsbn(string isbn) { /* znajdź książkę, przekieruj na Details lub NotFound() */ }
 }

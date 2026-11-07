@@ -1,6 +1,10 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using LabApp.Models;
+using System.Linq;
+using System.Diagnostics;
 
 namespace LabApp.Controllers;
 
@@ -16,9 +20,39 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Routes(
+        [FromServices] IActionDescriptorCollectionProvider provider)
+    {
+        var routes = provider.ActionDescriptors.Items
+            .OfType<ControllerActionDescriptor>()
+            .Select(r => new Routeinfo
+            {
+                Pattern = "/" + (r.AttributeRouteInfo?.Template ?? "Konwencjonalna"),
+                Action = r.ActionName,
+                Controller = r.ControllerName,
+
+                Methods = string.Join(", ",
+                    r.ActionConstraints?
+                        .OfType<HttpMethodActionConstraint>()
+                        .SelectMany(c => c.HttpMethods)
+                    ?? Enumerable.Empty<string>()
+                ),
+
+                Area = r.RouteValues.TryGetValue("area", out var area)
+                    ? area
+                    : null
+            })
+            .ToList();
+
+        return View(routes);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        });
     }
 }
